@@ -89,11 +89,11 @@
   width: 3rem;
   background-color: #4044c9;
   border-radius: .7rem;
-  border: .2rem solid #FFF;
+  border: .1rem solid #FFF;
 }
 
 .label:hover input ~ .checkmark {
-  background-color: #ccc;
+  background-color: #555aff;
 }
 
 .label input:checked ~ .checkmark {
