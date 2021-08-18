@@ -1,0 +1,3 @@
+const busquedaActual = {};
+
+export {busquedaActual};

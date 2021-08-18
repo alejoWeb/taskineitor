@@ -1,41 +1,43 @@
-import React, { useState } from "react";
+import React from "react";
+
 import "./Filters.css";
 
-const Filters = () => {
-	const [dateIn, setDateIn] = useState("");
-	const [dateOut, setDateOut] = useState("");
-	const [category, setCategory] = useState("");
-	const [status, setStatus] = useState("");
-
+const Filters = (props) => {
 	const handleDateIn = (e) => {
 		// console.log(`acabo de cambiar el dateIn a ${dateIn}`);
-		setDateIn(e.target.value);
+		props.onSetDateIn(e.target.value);
 	};
 	const handleDateOut = (e) => {
 		// console.log(`acabo de cambiar el dateOut a ${dateOut}`);
-		setDateOut(e.target.value);
+		props.onSetDateOut(e.target.value);
 	};
 	const handleCategory = (e) => {
 		// console.log(`acabo de cambiar la categoría a ${category}`);
-		setCategory(e.target.value);
+		props.onSetCategory(e.target.value);
 	};
 	const handleStatus = (e) => {
-		setStatus(e.target.value);
+		console.log(`msj desde Filter.js el valor del handleStatus es ${e.target.value} y es de tipo ${typeof e.target.value}`);
+		console.log(e.target);
+		props.onSetStatus(e.target.value);
 	};
+	
+	// props.onSetHeaderCategory(category);
+	// props.onSetHeaderStatus(status);
 
 	return (
 		<div className="form-container">
 			<div className="date-container">
-				<label htmlFor="" className="input-date">
-					<input value={dateIn} onChange={handleDateIn} type="date" />
+				<label className="input-date">
+					<input value={props.actualDateIn} onChange={handleDateIn} type="date" />
 				</label>
-				<label htmlFor="" className="input-date">
-					<input value={dateOut} onChange={handleDateOut} type="date" />
+				<label className="input-date">
+					<input value={props.actualDateOut} onChange={handleDateOut} type="date" />
 				</label>
 			</div>
 			<div className="select-container">
-				<label htmlFor="" className="categories-select">
-					<select value={category} onChange={handleCategory} name="" id="">
+				<label className="categories-select">
+					<select value={props.actualCategory} onChange={handleCategory} name="" id="">
+						<option value="todos">Todas las categorías</option>
 						<option value="organizacion">Organización</option>
 						<option value="casa">Casa</option>
 						<option value="negocio">Negocio</option>
@@ -43,10 +45,11 @@ const Filters = () => {
 						<option value="estudios">Estudios</option>
 					</select>
 				</label>
-				<label htmlFor="" className="status-select">
-					<select value={status} onChange={handleStatus} name="" id="">
-						<option value="completada">Completada</option>
-						<option value="no completada">No completada</option>
+				<label className="status-select">
+					<select value={props.actualStatus} onChange={handleStatus} name="" id="">
+						<option value="todos">Todos los estados</option>
+						<option value={true}>Completada</option>
+						<option value={false}>No completada</option>
 					</select>
 				</label>
 			</div>

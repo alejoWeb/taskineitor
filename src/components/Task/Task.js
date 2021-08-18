@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./Task.css";
 import deletebtn from "../../assets/imgs/delete.svg";
 
@@ -6,19 +6,7 @@ const Task = (props) => {
 	const today = new Date().getTime() / 1000;
 	const taskDate = new Date(props.date).getTime() / 1000;
 	const difTime = parseInt((today - taskDate) / 60 / 60 / 24);
-	const [checked, setChecked] = useState(false);
-	console.log(`La tarea ${props.title} es ${checked}`);
 
-	const handleTitleClick = (event) => {
-		console.log(
-			`Hiciste click en la tarea con nombre: ${event.target.textContent}`
-		);
-	};
-	const handleDateClick = (event) => {
-		console.log(
-			`Hiciste click en la tarea con fecha: ${event.target.textContent}`
-		);
-	};
 	const handleDeleteBtn = () => {
 		alert(
 			`¿Desea borrar la tarea '${props.title.toUpperCase()}', hoy, ${new Date().toLocaleDateString(
@@ -27,16 +15,17 @@ const Task = (props) => {
 			)}?`
 		);
 	};
-	const handleCheck = () => {
-		setChecked(!checked);
+	const handleCheckbox = () => {
+		props.onSetStatus(props.id);
+		console.log(`mensaje desde Task.js ${props.id}`)
 	};
 
 	return (
 		<div className="task-container">
 			<div className="info">
-				<h1 onClick={handleTitleClick}>{props.title}</h1>
-				<h3 onClick={handleDateClick}>
-					{props.date} - <em>Hace {difTime} días</em>
+				<h1>{props.title}</h1>
+				<h3>
+					{props.date} - <em>{difTime === 0 ? 'Hoy' : `Hace ${difTime} días`}</em>
 				</h3>
 				<h4>Categoría:</h4>
 				<p>
@@ -45,7 +34,7 @@ const Task = (props) => {
 			</div>
 			<div className="controls">
 				<label className="label">
-					<input onChange={handleCheck} type="checkbox" />
+					<input onChange={handleCheckbox} type="checkbox" />
 					<span className="checkmark"></span>
 				</label>
 				<img onClick={handleDeleteBtn} alt="delete button" src={deletebtn} />
